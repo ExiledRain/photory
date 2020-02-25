@@ -1,0 +1,12 @@
+.zull{
+    background-image: url("../img_src/faze.png");
+    background-repeat: no-repeat;
+    height: 163px;
+    margin-top: 10px;
+    background-position: center;
+    /*width: 100%;*/
+    position: relative;
+}
+body{
+    background-color: pink;
+}
