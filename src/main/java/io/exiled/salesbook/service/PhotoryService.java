@@ -1,6 +1,7 @@
 package io.exiled.salesbook.service;
 
 import io.exiled.salesbook.model.Img;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.Files;
@@ -12,6 +13,10 @@ import java.util.List;
 public class PhotoryService {
     private List<String> paths = new ArrayList<>();
     private List<Img> alps = new ArrayList<>();
+
+    @Value("${photory.path}")
+    private String rootPath;
+
     private String path = "./upd";
     //    private String path = "./src/main/resources/static/img/TallinnTrophy";
     private int num = "./src/main/resources/static/".length();
@@ -29,6 +34,7 @@ public class PhotoryService {
         paths.add("Betta");
         paths.add("Delta");
     }
+
 
     public List<String> getLinks() {
         return paths;

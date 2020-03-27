@@ -11,7 +11,7 @@
         <#list alps as alp>
                 <div class="col-4 mb-4">
                     <div class="card text-white bg-dark">
-                        <img src="${alp.getPath()}" class="card-img-top" alt="${alp.getPath()}">
+                        <img src="img${alp.getPath()}" class="card-img-top" alt="${alp.getPath()}">
                         <div class="card-body">
                             <p class="card-text small">Short name: ${alp.getName()}</p>
                         </div>

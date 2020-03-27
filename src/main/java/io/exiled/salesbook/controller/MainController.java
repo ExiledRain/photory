@@ -1,8 +1,10 @@
 package io.exiled.salesbook.controller;
 
+import io.exiled.salesbook.model.Img;
 import io.exiled.salesbook.model.Sale;
 import io.exiled.salesbook.repos.SaleRepo;
 import io.exiled.salesbook.service.AlpService;
+import io.exiled.salesbook.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,9 @@ public class MainController {
     @Autowired
     private AlpService alpService;
 
+    @Autowired
+    private TestService testService;
+
     @Value("${upload.path}")
     private String uploadPath;
 
@@ -31,6 +36,16 @@ public class MainController {
 
     @RequestMapping("/images")
     public String getAlps(Model model) {
+        alpService.refresh();
+        alpService.getPaths();
+        alpService.makeCollection();
+        model.addAttribute("alps",alpService.getAlps());
+        return "images";
+    }
+
+    @RequestMapping("/im")
+    public String getCcd(@RequestParam List<Img> ccd, Model model) {
+        testService.test(ccd);
         alpService.refresh();
         alpService.getPaths();
         alpService.makeCollection();
