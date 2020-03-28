@@ -5,7 +5,7 @@
         <h6>This is linker</h6>
         <#list folders as folder>
             <div>
-                <p><a href="/linker/${folder.fullLink}">${folder.name}</a></p>
+                <p><a href="/linker/${folder.shortLink}">${folder.linkName}</a></p>
             </div>
         </#list>
     </div>

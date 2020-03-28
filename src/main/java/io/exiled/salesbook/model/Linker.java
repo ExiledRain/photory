@@ -1,37 +1,27 @@
 package io.exiled.salesbook.model;
 
 public class Linker {
-    private String fullLink;
-    private String name;
-    private String previousLink;
+    private String linkName;
+    private String shortLink;
 
-    public Linker(String fullLink, String name) {
-        this.fullLink = fullLink;
-        this.name = name;
-        this.previousLink = "";
+    public Linker(String linkName, String shortLink) {
+        this.linkName = linkName;
+        this.shortLink = shortLink;
     }
 
-    public String getFullLink() {
-        return fullLink;
+    public String getLinkName() {
+        return linkName;
     }
 
-    public void setFullLink(String fullLink) {
-        this.fullLink = fullLink;
+    public void setLinkName(String linkName) {
+        this.linkName = linkName;
     }
 
-    public String getName() {
-        return name;
+    public String getShortLink() {
+        return shortLink;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPreviousLink() {
-        return previousLink;
-    }
-
-    public void setPreviousLink(String previousLink) {
-        this.previousLink = previousLink;
+    public void setShortLink(String shortLink) {
+        this.shortLink = shortLink;
     }
 }

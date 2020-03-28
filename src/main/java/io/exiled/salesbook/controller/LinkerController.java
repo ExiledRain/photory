@@ -24,17 +24,15 @@ public class LinkerController {
         return "linker";
     }
 
-    @RequestMapping("/{link1}")
+    @RequestMapping("/{link}")
     public String getFolders(
             Model model,
-            @PathVariable String link1
+            @PathVariable String link
     ){
         String root = defaultFolder;
-//        String updatedLink = service.updateLink(link1);
-        String updatedLink = root + "/" + link1;
+        String updatedLink = root + "/" + link;
 
-        model.addAttribute("folders",service.getFolders(updatedLink));
-        model.addAttribute("roots",service.getRootPath(updatedLink));
+        model.addAttribute("folders",service.getFolders(link));
 
         return "linker";
     }
@@ -47,8 +45,22 @@ public class LinkerController {
     ) {
         String root = defaultFolder;
         String updatedLink = root + "/" + link1 + "/" + link2;
-        model.addAttribute(service.getFolders(updatedLink));
-        model.addAttribute("roots",service.getRootPath(updatedLink));
+        model.addAttribute(service.getFolders(link2));
         return "linker";
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
