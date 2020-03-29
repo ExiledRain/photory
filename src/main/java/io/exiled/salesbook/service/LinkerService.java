@@ -10,15 +10,17 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service("linker")
+@Service("linkerService")
 public class LinkerService {
 
     @Autowired
-    private PhotoryService service;
+    private PhotoryService photoryService;
 
     @Value("${photory.path}")
     private String rootPath;
+    private int rootPathLength = rootPath.length();
 
+    private StringBuilder fullLink = new StringBuilder("").append(rootPath);
     private StringBuilder shortPath = new StringBuilder("");
 
     public List<Linker> getFolders(String root) {
@@ -52,6 +54,24 @@ public class LinkerService {
             }
         }
         return folders;
+    }
+
+    public List<Linker> buildLinks(String root) {
+        List<Linker> links = new ArrayList<>();
+        try {
+            if (!root.isEmpty()) {
+                Files.list(Paths.get(rootPath + createLink(root)))
+                        .filter(Files::isDirectory)
+                        .forEach(f -> links.add(new Linker(f.toString().substring(root.length() + 1), f.toString().substring(rootPathLength))));
+            } else {
+                Files.list(Paths.get(rootPath))
+                        .filter(Files::isDirectory)
+                        .forEach(f -> links.add(new Linker(f.toString().substring(root.length() + 1), f.toString().substring(root.length() + 1))));
+            }
+        } catch (Exception e) {
+            System.err.println("Error in BuildLinks Method " + e.getMessage());
+        }
+        return links;
     }
 
 //    public List<String> getRootPath(String root) {
@@ -97,11 +117,32 @@ public class LinkerService {
         } else {
             if (!shortLink.equals("")) {
                 resultLink.append(shortPath.append("/").append(shortLink));
-            } resultLink.reverse();
+            }
+            resultLink.append(shortPath.append("/").append(shortLink));
         }
         return resultLink.toString();
     }
+
+    private String createLink(String addition) {
+        StringBuilder createdLink = new StringBuilder("").append(fullLink);
+        if (shortPath.toString().contains(addition)) {
+            createdLink.append(shortPath.substring(0, shortPath.indexOf(addition) + addition.length()));
+        } else {
+            createdLink.append(shortPath.append("/").append(addition));
+        }
+        return createdLink.toString();
+    }
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

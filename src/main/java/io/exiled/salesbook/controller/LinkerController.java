@@ -1,7 +1,6 @@
 package io.exiled.salesbook.controller;
 
 import io.exiled.salesbook.service.LinkerService;
-import io.exiled.salesbook.service.PhotoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -20,7 +19,7 @@ public class LinkerController {
 
     @RequestMapping
     public String baseLinker(Model model) {
-        model.addAttribute("folders",service.getFolders(defaultFolder));
+        model.addAttribute("folders", service.buildLinks(""));
         return "linker";
     }
 
@@ -28,11 +27,11 @@ public class LinkerController {
     public String getFolders(
             Model model,
             @PathVariable String link
-    ){
+    ) {
         String root = defaultFolder;
         String updatedLink = root + "/" + link;
 
-        model.addAttribute("folders",service.getFolders(link));
+        model.addAttribute("folders", service.buildLinks(link));
 
         return "linker";
     }
@@ -45,7 +44,7 @@ public class LinkerController {
     ) {
         String root = defaultFolder;
         String updatedLink = root + "/" + link1 + "/" + link2;
-        model.addAttribute(service.getFolders(link2));
+        model.addAttribute(service.buildLinks(link2));
         return "linker";
     }
 }
