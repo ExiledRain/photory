@@ -13,6 +13,9 @@
                 <a class="nav-link" href="/main">Sales<span class="sr-only"></span></a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="/linker">Pre Order Photos<span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="/images">Images<span class="sr-only"></span></a>
             </li>
             <#if isAdmin>

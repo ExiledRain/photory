@@ -1,6 +1,10 @@
 package io.exiled.salesbook.controller;
 
+import io.exiled.salesbook.repos.SaleRepo;
+import io.exiled.salesbook.service.AlpService;
 import io.exiled.salesbook.service.LinkerService;
+import io.exiled.salesbook.service.PhotoryService;
+import io.exiled.salesbook.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -11,15 +15,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(value = "/linker")
 public class LinkerController {
+    private SaleRepo saleRepo;
+
+    @Autowired
+    private AlpService alpService;
+
+    @Autowired
+    private TestService testService;
+
+    @Value("${upload.path}")
+    private String uploadPath;
+
+    @Value("${photory.path}")
+    private String defaultFolder;
+
+    String root = "/home/exile/dev/Photory/Tallinn Trophy";
     @Autowired
     private LinkerService service;
-//
-//    @Value("${photory.path}")
-//    private String defaultFolder;
 
     @RequestMapping
     public String baseLinker(Model model) {
         model.addAttribute("folders",service.buildLinks(""));
+        alpService.refresh();
+        alpService.getPaths();
+        alpService.makeCollection();
+        model.addAttribute("alps",alpService.getAlps());
         return "linker";
     }
 

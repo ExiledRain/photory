@@ -12,7 +12,6 @@ import java.util.List;
 
 @Service
 public class LinkerServiceImpl implements LinkerService {
-
     @Value("${photory.path}")
     private String rootPath;
 
@@ -20,30 +19,6 @@ public class LinkerServiceImpl implements LinkerService {
 
     private StringBuilder fullLink = new StringBuilder("").append(rootPath);
     private StringBuilder shortPath = new StringBuilder("");
-
-//    public List<Linker> getFolders(String root) {
-//        List<Linker> folders = new ArrayList<>();
-//        if (root.equals(rootPath)) {
-//            try {
-//                Files.list(Paths.get(root))
-//                        .filter(Files::isDirectory)
-//                        .forEach(f -> folders.add(new Linker(f.toString().substring(root.length() + 1), f.toString().substring(root.length() + 1))));
-//            } catch (Exception e) {
-//                System.err.println("Error in get paths");
-//                e.printStackTrace();
-//            }
-//        } else {
-//            try {
-//                Files.list(Paths.get(rootPath + root))
-//                        .filter(Files::isDirectory)
-//                        .forEach(f -> folders.add(new Linker(root, f.toString().substring(root.length() + 1))));
-//            } catch (Exception e) {
-//                System.err.println("Error in get paths");
-//                e.printStackTrace();
-//            }
-//        }
-//        return folders;
-//    }
 
     public List<Linker> buildLinks(String root) {
         List<Linker> links = new ArrayList<>();
@@ -71,6 +46,7 @@ public class LinkerServiceImpl implements LinkerService {
         return links;
     }
 
+    @Deprecated
     private String createLink(String addition) {
         StringBuilder createdLink = new StringBuilder("").append(fullLink);
         if (shortPath.toString().contains(addition)) {
