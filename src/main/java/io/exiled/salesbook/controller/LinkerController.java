@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping(path = "/preorder")
+@RequestMapping(path = "/linker")
 public class LinkerController {
     private SaleRepo saleRepo;
 
@@ -29,28 +29,28 @@ public class LinkerController {
 
     String root = "/home/exile/dev/Photory/Tallinn Trophy";
 
-//    @RequestMapping
-//    public String baseLinker(Model model) {
-//        model.addAttribute("folders", service.buildLinks(""));
-//        alpService.refresh();
-//        alpService.getPaths();
-//        alpService.makeCollection();
-//        model.addAttribute("alps", alpService.getAlps());
-//        return "linker";
-//    }
-
-    @RequestMapping(path = "{link1}",method = RequestMethod.GET)
-    public String getFolders(
-            @PathVariable("link1") String link1,
-            Model model
-    ) {
-        model.addAttribute("folders", service.buildLinks("/" + link1));
+    @RequestMapping
+    public String baseLinker(Model model) {
+        model.addAttribute("folders", service.buildLinks(""));
         alpService.refresh();
         alpService.getPaths();
         alpService.makeCollection();
         model.addAttribute("alps", alpService.getAlps());
         return "linker";
     }
+
+//    @RequestMapping(path = "{link1}",method = RequestMethod.GET)
+//    public String getFolders(
+//            @PathVariable("link1") String link1,
+//            Model model
+//    ) {
+//        model.addAttribute("folders", service.buildLinks("/" + link1));
+//        alpService.refresh();
+//        alpService.getPaths();
+//        alpService.makeCollection();
+//        model.addAttribute("alps", alpService.getAlps());
+//        return "linker";
+//    }
 
 //    @RequestMapping("/{link1}/{link2}")
 //    public String get2Folders(

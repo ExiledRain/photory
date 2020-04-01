@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 public class LinkerServiceImpl implements LinkerService {
@@ -32,9 +34,11 @@ public class LinkerServiceImpl implements LinkerService {
 //                Files.list(Paths.get(updatedLink))
 //                        .filter(Files::isDirectory)
 //                        .forEach(f -> links.add(new Linker(f.toString().substring(fullPath.length() + 1), f.toString().substring(fullPath.length() + 1))));
-                Files.list(Paths.get(updatedLink))
-                        .filter(Files::isDirectory)
+                Stream<Path> pathStream = Files.list(Paths.get(updatedLink))
+                        .filter(Files::isDirectory);
+                pathStream
                         .forEach(f -> links.add(new Linker(f.toString().substring(fullPath.length() + 1), f.toString().substring(fullPath.length() + 1))));
+                pathStream.close();
             } else {
                 Files.list(Paths.get(rootPath))
                         .filter(Files::isDirectory)
