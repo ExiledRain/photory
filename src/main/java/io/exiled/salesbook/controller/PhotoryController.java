@@ -17,8 +17,8 @@ public class PhotoryController {
     @Autowired
     private TestService service;
 
-    @Value("${photory.path}")
-    private String defaultFolder;
+//    @Value("${photory.path}")
+//    private String defaultFolder;
 
     String root = "/home/exile/dev/Photory/Tallinn Trophy";
 

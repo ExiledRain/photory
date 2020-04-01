@@ -10,7 +10,9 @@ package io.exiled.salesbook.config;
 //import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 //import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
-//@Configuration
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
 //@EnableWebSecurity
 //@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig{

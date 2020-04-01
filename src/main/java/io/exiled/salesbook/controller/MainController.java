@@ -26,8 +26,8 @@ public class MainController {
     @Autowired
     private TestService testService;
 
-    @Value("${upload.path}")
-    private String uploadPath;
+//    @Value("${upload.path}")
+    private String uploadPath = "/home/exile/dev/Photory/upd";
 
     @GetMapping("/")
     public String getStarted() {

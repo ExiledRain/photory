@@ -1,4 +1,4 @@
-.zull{
+#design{
     background-image: url("../img_src/faze.png");
     background-repeat: no-repeat;
     height: 163px;
@@ -8,7 +8,7 @@
     position: relative;
 }
 body{
-    background-color: pink;
+    background-color: green;
 }
 
 label {

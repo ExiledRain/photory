@@ -13,7 +13,7 @@
     </head>
     <body>
 
-    <div class="zull"></div>
+    <div id="design">Logo</div>
     <#include "navbar.ftlh">
     <div class="mt-3 ml-2">
         <#nested>

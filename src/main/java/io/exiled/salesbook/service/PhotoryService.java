@@ -14,8 +14,8 @@ public class PhotoryService {
     private List<String> paths = new ArrayList<>();
     private List<Img> alps = new ArrayList<>();
 
-    @Value("${photory.path}")
-    private String rootPath;
+//    @Value("${photory.path}")
+    private String rootPath = "/home/exile/dev/Photory/upd";
 
     private String path = "./upd";
     //    private String path = "./src/main/resources/static/img/TallinnTrophy";

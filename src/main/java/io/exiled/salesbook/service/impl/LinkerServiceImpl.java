@@ -12,8 +12,8 @@ import java.util.List;
 
 @Service
 public class LinkerServiceImpl implements LinkerService {
-    @Value("${photory.path}")
-    private String rootPath;
+//    @Value("${photory.path}")
+    private String rootPath = "/home/exile/dev/Photory/Linker/Tallinn Trophy";
 
     private String fullPath = "/home/exile/dev/Photory/Linker/Tallinn Trophy";
 

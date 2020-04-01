@@ -3,9 +3,10 @@
 <@p.page>
     <div>
         <h6>This is linker</h6>
+        <link rel="stylesheet" href="./styles/sstyle.css">
         <#list folders as folder>
             <div>
-                <p><a href="/linker/${folder.fullLink}">${folder.name}</a></p>
+                <p><a href="/preorder/${folder.fullLink}" name="link">${folder.name}</a></p>
             </div>
         </#list>
     </div>

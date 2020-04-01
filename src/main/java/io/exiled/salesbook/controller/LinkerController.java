@@ -3,84 +3,108 @@ package io.exiled.salesbook.controller;
 import io.exiled.salesbook.repos.SaleRepo;
 import io.exiled.salesbook.service.AlpService;
 import io.exiled.salesbook.service.LinkerService;
-import io.exiled.salesbook.service.PhotoryService;
 import io.exiled.salesbook.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping(value = "/linker")
+@RequestMapping(path = "/preorder")
 public class LinkerController {
     private SaleRepo saleRepo;
 
-    @Autowired
     private AlpService alpService;
-
-    @Autowired
-    private TestService testService;
-
-    @Value("${upload.path}")
-    private String uploadPath;
-
-    @Value("${photory.path}")
-    private String defaultFolder;
-
-    String root = "/home/exile/dev/Photory/Tallinn Trophy";
-    @Autowired
     private LinkerService service;
 
-    @RequestMapping
-    public String baseLinker(Model model) {
-        model.addAttribute("folders",service.buildLinks(""));
+
+//    @Autowired
+//    private TestService testService;
+
+//    @Value("${upload.path}")
+    private String uploadPath = "/home/exile/dev/Photory/upd";
+
+//    @Value("${photory.path}")
+    private String defaultFolder = "/home/exile/dev/Photory/Linker/Tallinn Trophy";
+
+    String root = "/home/exile/dev/Photory/Tallinn Trophy";
+
+//    @RequestMapping
+//    public String baseLinker(Model model) {
+//        model.addAttribute("folders", service.buildLinks(""));
+//        alpService.refresh();
+//        alpService.getPaths();
+//        alpService.makeCollection();
+//        model.addAttribute("alps", alpService.getAlps());
+//        return "linker";
+//    }
+
+    @RequestMapping(path = "{link1}",method = RequestMethod.GET)
+    public String getFolders(
+            @PathVariable("link1") String link1,
+            Model model
+    ) {
+        model.addAttribute("folders", service.buildLinks("/" + link1));
         alpService.refresh();
         alpService.getPaths();
         alpService.makeCollection();
-        model.addAttribute("alps",alpService.getAlps());
+        model.addAttribute("alps", alpService.getAlps());
         return "linker";
     }
 
-    @RequestMapping("/{link1}")
-    public String getFolders(
-            Model model,
-            @PathVariable String link1
-    ){
-        model.addAttribute("folders",service.buildLinks("/" + link1));
-        return "linker";
+//    @RequestMapping("/{link1}/{link2}")
+//    public String get2Folders(
+//            @PathVariable("link1") String link1,
+//            @PathVariable("link2") String link2,
+//            Model model
+//    ) {
+//        model.addAttribute("folders", service.buildLinks("/" + link1 + "/" + link2));
+//        alpService.refresh();
+//        alpService.getPaths();
+//        alpService.makeCollection();
+//        model.addAttribute("alps", alpService.getAlps());
+//        return "linker";
+//    }
+
+//    @RequestMapping("/{link1}/{link2}/{link3}")
+//    public String get3Folders(
+//            Model model,
+//            @PathVariable("link1") String link1,
+//            @PathVariable("link2") String link2,
+//            @PathVariable("link3") String link3
+//    ) {
+//        model.addAttribute("folders", service.buildLinks("/" + link1 + "/" + link2 + "/" + link3));
+//        alpService.refresh();
+//        alpService.getPaths();
+//        alpService.makeCollection();
+//        model.addAttribute("alps", alpService.getAlps());
+//        return "linker";
+//    }
+
+//    @RequestMapping(path = "/{link1}/{link2}/{link3}/{link4}")
+//    public String get4Folders(
+//            Model model,
+//            @PathVariable("link1") String link1,
+//            @PathVariable("link2") String link2,
+//            @PathVariable("link3") String link3,
+//            @PathVariable("link4") String link4
+//    ) {
+//        model.addAttribute("folders", service.buildLinks("/" + link1 + "/" + link2 + "/" + link3 + "/" + link4));
+//        alpService.refresh();
+//        alpService.getPaths();
+//        alpService.makeCollection();
+//        model.addAttribute("alps", alpService.getAlps());
+//        return "linker";
+//    }
+
+    @Autowired
+    public void setAlpService(AlpService alpService) {
+        this.alpService = alpService;
     }
 
-    @RequestMapping("/{link1}/{link2}")
-    public String get2Folders(
-            Model model,
-            @PathVariable String link1,
-            @PathVariable String link2
-    ) {
-        model.addAttribute("folders",service.buildLinks("/"+ link1 + "/" + link2));
-        return "linker";
-    }
-    @RequestMapping("/{link1}/{link2}/{link3}")
-    public String get3Folders(
-            Model model,
-            @PathVariable String link1,
-            @PathVariable String link2,
-            @PathVariable String link3
-    ) {
-        model.addAttribute("folders",service.buildLinks("/"+ link1 + "/" + link2 + "/" + link3));
-        return "linker";
-    }
-    @RequestMapping("/{link1}/{link2}/{link3}/{link4}")
-    public String get4Folders(
-            Model model,
-            @PathVariable String link1,
-            @PathVariable String link2,
-            @PathVariable String link3,
-            @PathVariable String link4
-    ) {
-        model.addAttribute("folders",service.buildLinks("/"+ link1 + "/" + link2 + "/" + link3 + "/" + link4));
-        return "linker";
+    @Autowired
+    public void setService(LinkerService service) {
+        this.service = service;
     }
 }
 
