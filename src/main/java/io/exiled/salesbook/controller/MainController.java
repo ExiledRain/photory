@@ -26,7 +26,7 @@ public class MainController {
     @Autowired
     private TestService testService;
 
-//    @Value("${upload.path}")
+    //    @Value("${upload.path}")
     private String uploadPath = "/home/exile/dev/Photory/upd";
 
     @GetMapping("/")
@@ -39,7 +39,7 @@ public class MainController {
         alpService.refresh();
         alpService.getPaths();
         alpService.makeCollection();
-        model.addAttribute("alps",alpService.getAlps());
+        model.addAttribute("alps", alpService.getAlps());
         return "images";
     }
 
@@ -49,7 +49,7 @@ public class MainController {
         alpService.refresh();
         alpService.getPaths();
         alpService.makeCollection();
-        model.addAttribute("alps",alpService.getAlps());
+        model.addAttribute("alps", alpService.getAlps());
         return "images";
     }
 
@@ -63,7 +63,7 @@ public class MainController {
     }
 
     @GetMapping("/main")
-    public String getSales(@RequestParam(required = false, defaultValue = "")String ename, Model model) {
+    public String getSales(@RequestParam(required = false, defaultValue = "") String ename, Model model) {
         List<Sale> sales = saleRepo.findAll();
         List<Sale> saleList = saleRepo.findByName(ename);
         model.addAttribute("saleList", saleList);
