@@ -1,6 +1,7 @@
 package io.exiled.salesbook.service.impl;
 
 import io.exiled.salesbook.service.PreOrderService;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -11,12 +12,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service("preOrder")
 public class PreOrderServiceImpl implements PreOrderService {
-    @Value("{preOrder.path}")
+    private List<String> folderList = new ArrayList<>();
+
+    @Value("${preOrder.path}")
+    private String preOrderPath;
 
     @Override
     public String buildLink(String link) {
@@ -25,21 +30,35 @@ public class PreOrderServiceImpl implements PreOrderService {
 
     @Override
     public List<String> findFolders(String path) {
-        String completePath = "" + path;
-        File file = new File(completePath);
+        String completePath = preOrderPath;
+//        File file = new File(completePath);
 
-        try {
-            Files.walkFileTree(file.toPath(), Collections.emptySet(), 1, new SimpleFileVisitor<Path>() {
-                @Override
-                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                    System.out.println(file);
-                    return FileVisitResult.CONTINUE;
-                }
-            });
-        } catch (IOException e) {
-            System.err.println("findFolders ERROR: " + e.getMessage());
+        List<File> files = (List<File>) FileUtils.listFiles(new File(completePath), null, false);
+//        files.stream()
+//                .filter(File::isDirectory)
+//                .forEach(System.out::println);
+
+        files.forEach(System.err::println);
+        return new ArrayList<>();
+    }
+
+    public void buildFilePaths(String dir) {
+        String updatedPath = preOrderPath + dir;
+        if (!dir.isEmpty()) {
+            Stream.of(Objects.requireNonNull(new File(updatedPath).listFiles()))
+                    .filter(File::isDirectory)
+                    .forEach(x -> folderList.add(x.getPath()));
+//                .map(File::getName)
+//                .collect(Collectors.toSet());
+        } else {
+            Stream.of(Objects.requireNonNull(new File(preOrderPath).listFiles()))
+                    .filter(File::isDirectory)
+                    .forEach(x -> folderList.add(x.getPath()));
         }
-        return null;
+    }
+
+    public List<String> getFolderList() {
+        return folderList;
     }
 }
 
